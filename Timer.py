@@ -46,7 +46,7 @@ bottomFrame.pack(side=BOTTOM)
 #initial code
 
 #time variable
-time = StringVar()
+time = IntVar()
 
 
 #onoff variable
@@ -56,58 +56,29 @@ checked = True
 
 #define the time function
 def time1():
-    global ja, ja1, mt, ht, amount, sc, scds
-    ja = text.get()
-    ja1 = text1.get()
-    mt = ja * 60
-    ht = ja1 * 3600
-    amount = mt + ht
+    global ja, sc, scds
+    ja = time.get()
+    print(ja)
     scds = True
     sc = 0
-
-
-def ok():
-    print('done')
-
-
-##########################
-#change the 'if ja or ja1 => 1:' 
-#    while scds:
-#    if ja or ja1 => 1:
-#        sc = sc + 1
-#        print(sc)
-#        time.sleep(1)
-#        if sc == amount:
-#            print('IT WORKED!!!')
-#            break
-#            return
-#    else:
-#        oof = Label(root, text = "ERROR, CANNOT COMPREHEND '0'")
-#        oof.config(fg = 'red')
-#        oof.pack()
-##########################
 
 
 log = True
 errors = True
 
+
 #define the start function
 def start():
-    global log, errors, got
+    global log, got
 
     if log:
         logging = Label(root, text = 'Logging Outcome:', font = 'Helvetica')
         logging.config(fg = 'black', bg = 'white')
         logging.pack()
         log = False
-    try:
-        got = time.get()
-    except:
-        if errors:
-            error = Label(root, text = "ERROR, EMPTY VALUE IN 'TIME'")
-            error.config(fg = 'red')
-            error.pack()
-            errors = False
+    got = time.get()
+
+        
     
 
     time1()
@@ -117,35 +88,14 @@ def start():
 aof = Label(topFrame, text = 'Amount of time', font = 'Helvetica')
 aof.pack()
 
-spinbox1 = Spinbox(topFrame, from_=0, to=60,state=NORMAL).pack()
+spinbox1 = Spinbox(topFrame, from_=0, to=60,state=NORMAL, wrap =- True).pack()
 
 set1 = Listbox(topFrame)
-set1.insert(1, '1')
-set1.insert(2, '3')
-set1.insert(3, '5')
-set1.insert(4, '8')
-set1.insert(5, '10')
-set1.insert(6, '13')
-set1.insert(7, '15')
-set1.insert(8, '18')
-set1.insert(9, '20')
-set1.insert(10, '21')
-set1.insert(11, '22')
-set1.insert(12, '23')
-set1.insert(13, '24')
-set1.insert(14, '25')
-set1.insert(15, '26')
-set1.insert(16, '27')
-set1.insert(17, '28')
-set1.insert(18, '30')
-set1.insert(19, '31')
-set1.insert(20, '35')
-set1.insert(21, '40')
-set1.insert(22, '45')
-set1.insert(23, '48')
-set1.insert(24, '50')
-set1.insert(25, '55')
-set1.insert(26, '60')
+mytime = ['1', '3', '5', '8', '10', '13', '15', '18', '20', '21', '22', 
+          '23', '24', '25', '26', '27', '28', '30', '31', '35', '40', '45',
+          '48', '50', '55', '60']
+for i in range(1,27):
+    set1.insert(i, mytime[i-1])
 set1.pack()
 
 starts = Button(root, text = 'Start Timer', bg = 'white', fg = 'black', font = 'Helevetica', command = start)
