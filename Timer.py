@@ -45,11 +45,9 @@ bottomFrame.pack(side=BOTTOM)
 ################################################
 #initial code
 
-#text variable
-text = IntVar()
+#time variable
+time = StringVar()
 
-#text1 variable
-text1 = IntVar()
 
 #onoff variable
 onoff = IntVar()
@@ -92,11 +90,10 @@ def ok():
 
 log = True
 errors = True
-errors1 = True
 
 #define the start function
 def start():
-    global log, errors1, errors, got, got1
+    global log, errors, got
 
     if log:
         logging = Label(root, text = 'Logging Outcome:', font = 'Helvetica')
@@ -104,41 +101,56 @@ def start():
         logging.pack()
         log = False
     try:
-        got = text.get()
+        got = time.get()
     except:
         if errors:
-            error = Label(root, text = "ERROR, EMPTY VALUE IN 'MINUTES'")
+            error = Label(root, text = "ERROR, EMPTY VALUE IN 'TIME'")
             error.config(fg = 'red')
             error.pack()
             errors = False
-    try:
-        got1 = text1.get()
-    except:
-        if errors1:
-            error1 = Label(root, text = "ERROR, EMPTY VALUE IN 'HOURS'")
-            error1.config(fg = 'red')
-            error1.pack()
-            errors1 = False
+    
 
     time1()
 
 
 
-label = Label(topFrame, text = 'How much minutes?', font = 'Helvetica')
-timer = Entry(topFrame, width = 20, textvariable = text)
-timer.config(bg = 'orange')
-label.pack()
-timer.pack()
-hours = Label(topFrame, text = 'How much hours?', font = 'Helvetica')
-timer1 = Entry(topFrame, width = 20, textvariable = text1)
-timer1.config(bg = 'red')
-hours.pack()
-timer1.pack()
+aof = Label(topFrame, text = 'Amount of time', font = 'Helvetica')
+aof.pack()
+
+spinbox1 = Spinbox(topFrame, from_=0, to=60,state=NORMAL).pack()
+
+set1 = Listbox(topFrame)
+set1.insert(1, '1')
+set1.insert(2, '3')
+set1.insert(3, '5')
+set1.insert(4, '8')
+set1.insert(5, '10')
+set1.insert(6, '13')
+set1.insert(7, '15')
+set1.insert(8, '18')
+set1.insert(9, '20')
+set1.insert(10, '21')
+set1.insert(11, '22')
+set1.insert(12, '23')
+set1.insert(13, '24')
+set1.insert(14, '25')
+set1.insert(15, '26')
+set1.insert(16, '27')
+set1.insert(17, '28')
+set1.insert(18, '30')
+set1.insert(19, '31')
+set1.insert(20, '35')
+set1.insert(21, '40')
+set1.insert(22, '45')
+set1.insert(23, '48')
+set1.insert(24, '50')
+set1.insert(25, '55')
+set1.insert(26, '60')
+set1.pack()
 
 starts = Button(root, text = 'Start Timer', bg = 'white', fg = 'black', font = 'Helevetica', command = start)
 starts.config(height = 2, width = 9)
 starts.pack()
-starts.bind("<Return>", ok)
 
 
 
