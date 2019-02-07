@@ -1,30 +1,25 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jan 10 17:31:18 2019
+
+@author: Justin Ge
+"""
+
+
+
 #timer for eyes
 import time
-import tkinter
 from tkinter import *
 
 ################################################
 #window
 root = Tk()
 
-#setting width and height
-w = 620
-h = 650
+root.attributes('-fullscreen', True)
 
 #set the color OPTIONAL
 #root.config(bg='white')
 
-global ws, hs
-#get screen width and height
-ws = root.winfo_screenwidth()
-hs = root.winfo_screenheight()
-
-# calculate x and y coordinates for the Tk root window
-x = (ws/2) - (w/2)
-y = (hs/2) - (h/2)
-
-# set the dimensions of the screen and where it is placed
-root.geometry('%dx%d+%d+%d' % (w, h, x, y))
 
 #set title
 root.title("G. Timer")
@@ -45,26 +40,34 @@ bottomFrame.pack(side=BOTTOM)
 ################################################
 #initial code
 
-#time variable
-time = IntVar()
-
-
 #onoff variable
 onoff = IntVar()
 checked = True
 
 
+#define the end function
+def end():
+    root.attributes('-fullscreen', True)
+    le = Label(root, text='Timer End!', font = 'Times 20 bold', bg='yellow', fg='red').pack()
+    starts.config(state=DISABLED)
+    time.sleep(5)
+    print('test')
+    #exit the computer
+
 #define the time function
 def time1():
-    global ja, sc, scds
-    ja = time.get()
-    print(ja)
-    scds = True
-    sc = 0
+    seconds = int(got) * 60
+    sc = True
+    scc = 0
+    seconds1 = seconds + 1
+    for x in range(1, seconds1):
+        time.sleep(1)
+        print(x)
+    end()
+    
 
 
 log = True
-errors = True
 
 
 #define the start function
@@ -75,9 +78,13 @@ def start():
         logging = Label(root, text = 'Logging Outcome:', font = 'Helvetica')
         logging.config(fg = 'black', bg = 'white')
         logging.pack()
-        log = False
-    got = time.get()
-
+        log = False   
+    
+    got = set1.get(set1.curselection())
+    
+    if got:
+        root.attributes('-fullscreen', False)
+        root.protocol("WM_DELETE_WINDOW", callback)
         
     
 
@@ -85,10 +92,8 @@ def start():
 
 
 
-aof = Label(topFrame, text = 'Amount of time', font = 'Helvetica')
+aof = Label(topFrame, text = 'Amount of time', font = 'Helvetica 20')
 aof.pack()
-
-spinbox1 = Spinbox(topFrame, from_=0, to=60,state=NORMAL, wrap =- True).pack()
 
 set1 = Listbox(topFrame)
 mytime = ['1', '3', '5', '8', '10', '13', '15', '18', '20', '21', '22', 
@@ -103,10 +108,8 @@ starts.config(height = 2, width = 9)
 starts.pack()
 
 
-
-
-
-
+def callback():
+    pass
 
 
 
