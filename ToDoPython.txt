@@ -1,0 +1,3 @@
+Create a sort of notepad that saves your work
+Add applications to the auxiliary organizer
+Rename auxiliary organizer to Apid Navigator

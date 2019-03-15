@@ -70,7 +70,7 @@ def ok(event):
       output = text.get()
       webbrowser.open_new_tab('https://youtube.com/results?search_query=music %s' % output)
       return
-      
+
 #create the function searchmusic
 def searchmusic():
       #global variables
@@ -103,13 +103,13 @@ def searchmusic():
 def Help():
       #global variables
       global tk
-      
+
       exit1()
       tk = Tk()
       #frame(s)
       bottomFRM = Frame(tk)
       bottomFRM.pack(side=BOTTOM)
-      
+
       #*COPIED FROM THE START(again)*
       #setting width and height
       w = 250
@@ -192,7 +192,7 @@ def op():
 def hist():
       #first delete ther win gui
       win.destroy()
-      
+
       #new gui
       global nw
       nw = Tk()
@@ -215,7 +215,7 @@ def hist():
 
       #title
       nw.title('History')
-      
+
       #create the list of history
       slider = Scale(nw, from_ = 0, to = 10)
       slider.pack()
@@ -228,7 +228,7 @@ def hist():
 def easter():
       #global variables
       global js, rainbowToggle, check
-      
+
       win.destroy()
       js = Tk()
 
@@ -253,7 +253,7 @@ def easter():
 
       #bg color
       js.config(bg = 'white')
-      
+
       #rainbow
       check = IntVar()
       rainbowToggle = Checkbutton(js, text = 'Rainbow Main Screen', state = ACTIVE, variable = check, command = rainbow)
@@ -304,14 +304,14 @@ def exit2():
 
 #exit1 function
 def exit1():
-      win.destroy()     
+      win.destroy()
 
 #not needed until polishing product
 #add background image
 #img = ImageTk.PhotoImage(Image.open("back.jpg"))
 #panel = Label(root, image = img)
-#panel.pack(side = "bottom", fill = "both", expand = "yes") 
-      
+#panel.pack(side = "bottom", fill = "both", expand = "yes")
+
 #define the exit button
 exitbtn = Button(bottomFrame, text='Exit', command = exitTK)
 exitbtn.config(bg='grey', fg='white')
@@ -353,6 +353,3 @@ options.pack()
 
 #set mainloop
 root.mainloop()
-
-
-
