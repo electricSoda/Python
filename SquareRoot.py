@@ -24,7 +24,7 @@ def sqroot():
         
 sqroot()        
 
-a = str(input('Continue? [{Y}] or [{N]}  '))
+a = str(input('Continue? [{Y}] or [{N}]  '))
 if a == 'Y' or 'y':
     sqroot()
 if a == 'N' or 'n':
