@@ -22,10 +22,17 @@ def sqroot():
         resulta1 = round(result2)
         print(str(resulta1))
 
+<<<<<<< HEAD
 sqroot()
 
+=======
+>>>>>>> 7465374cec4fe6dc09e84ff3ca9e00aac91d9f83
 a = str(input('Continue? [{Y}] or [{N}]  '))
 if a == 'Y' or 'y':
     sqroot()
 if a == 'N' or 'n':
     exit()
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 7465374cec4fe6dc09e84ff3ca9e00aac91d9f83
