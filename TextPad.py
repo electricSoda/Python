@@ -3,6 +3,7 @@
 
 #import modules needed
 import os
+import time
 from tkinter import *
 from tkinter import simpledialog
 from tkinter import messagebox
@@ -42,7 +43,11 @@ root.title("TextPad")
 
 #terminate function
 def terminate():
-    root.destroy()
+    try:
+        root.destroy()
+    except Exception as a1:
+        messagebox.showerror('Error', 'Error: Items Missing.')
+        print(a1)
 
 #save function
 def save():
@@ -53,51 +58,108 @@ def save():
         os.chdir(saveDir)
         with open(name + '.txt', 'w+') as doc:
             doc.write(got)
-    except:
+    except Exception as e:
         messagebox.showerror('Error', 'Error: Invalid information.')
+        print(e)
 
+#print1 function
+def print1():
+    dir1 = simpledialog.askstring('Print Directory', 'Directory:')
+    file = simpledialog.askstring('File Name', 'File Name (including .txt, pdf etc.):')
+
+    try:
+        os.chdir(dir1)
+        os.startfile(file, 'print')
+        root.messagebox.showinfo('Printing', 'Printing...')
+        time.sleep(2)
+    except Exception as ex:
+        messagebox.showerror('Error', 'Error: Invalid information.')
+        print(ex)
+
+#hub function
+def hub():
+    global hub1
+    hub1 = Tk()
+
+    #setting width and height
+    w1 = 100
+    h1 = 100
+
+    #set the color
+    hub1.config(bg='white')
+
+    #get screen width and height
+    ws1 = hub1.winfo_screenwidth()
+    hs1 = hub1.winfo_screenheight()
+
+    # calculate x and y coordinates for the Tk root window
+    x1 = (ws1/2) - (w1/2)
+    y1 = (hs1/2) - (h1/2)
+
+    # set the dimensions of the screen and where it is placed
+    hub1.geometry('%dx%d+%d+%d' % (w1, h1, x1, y1))
+
+    image1 = Button(hub1, text='Insert Image', command = insert)
+    image1.pack()
+
+    back = Button(hub1, text='Back', command=terminate1)
+    back.pack()
+
+
+#terminate1 function
+def terminate1():
+    try:
+        hub1.destroy()
+    except Exception as a2:
+        messagebox.showerror('Error', 'Error: Items Missing.')
+        print(a2)
+
+
+#undo funcion
+def undo():
+    text.edit_undo()
+
+#redo function
+def redo():
+    text.edit_redo()
+
+#insert function
+def insert():
+    print('Pressed')
 
 # **** Menus **** #
 menu = Menu(root)
 root.config(menu = menu)
 
-fileMenu = Menu(menu)
-menu.add_cascade(label='File', menu = fileMenu)
+fileMenu = Menu(menu, tearoff = 0)
+menu.add_cascade(label='File', underline = 0, menu = fileMenu)
 fileMenu.add_command(label='New File')
 fileMenu.add_command(label='New...')
 fileMenu.add_command(label='Open File...')
-fileMenu.add_command(label='Reopen File')
 fileMenu.add_separator()
-fileMenu.add_command(label='Save', command = save)
-fileMenu.add_separator()
-fileMenu.add_command(label='Open Toolbar')
+fileMenu.add_command(label='Save', accelerator = 'Ctrl+S', command = save)
 fileMenu.add_separator()
 fileMenu.add_command(label='Exit', command = terminate)
 
 
-editMenu = Menu(menu)
-menu.add_cascade(label='Edit', menu = editMenu)
-editMenu.add_command(label='Undo')
-editMenu.add_command(label='Redo')
+editMenu = Menu(menu, tearoff = 0)
+menu.add_cascade(label='Edit', underline = 0, menu = editMenu)
+editMenu.add_command(label='Undo', accelerator = 'Ctrl+Z', command = undo)
+editMenu.add_command(label='Redo', accelerator = 'Ctrl+Shift+Z', command = redo)
 editMenu.add_separator()
-editMenu.add_command(label='Cut')
-editMenu.add_command(label='Copy')
-editMenu.add_command(label='Paste')
-editMenu.add_command(label='Paste Without Reformatting')
-editMenu.add_command(label='Select All')
+insertMenu = Menu(editMenu, tearoff = 0)
+insertMenu.add_command(label='Insert Image', command=insert)
+editMenu.add_cascade(label = 'Insert', menu = insertMenu)
 
 
-viewMenu = Menu(menu)
-menu.add_cascade(label='View', menu = viewMenu)
+viewMenu = Menu(menu, tearoff = 0)
+menu.add_cascade(label='View', underline = 0, menu = viewMenu)
 
-winMenu = Menu(menu)
-menu.add_cascade(label='Window', menu = winMenu)
+optionMenu = Menu(menu, tearoff = 0)
+menu.add_cascade(label='Options', underline = 0, menu = optionMenu)
 
-optionMenu = Menu(menu)
-menu.add_cascade(label='Options', menu = optionMenu)
-
-helpMenu = Menu(menu)
-menu.add_cascade(label='Help', menu = helpMenu)
+helpMenu = Menu(menu, tearoff = 0)
+menu.add_cascade(label='Help', underline = 0, menu = helpMenu)
 
 # **** **** #
 
@@ -105,10 +167,10 @@ menu.add_cascade(label='Help', menu = helpMenu)
 # **** Toolbar **** #
 toolbar = Frame(root, bg='orange')
 
-insertBtn = Button(toolbar, text = "Insert")
+insertBtn = Button(toolbar, text = 'Insert', command = hub)
 insertBtn.pack(side = TOP, padx = 2, pady = 2)
 
-printBtn = Button(toolbar, text = "Print")
+printBtn = Button(toolbar, text = "Print", command = print1)
 printBtn.pack(side = TOP, padx = 2, pady = 2)
 
 saveBtn = Button(toolbar, text = 'Save', command = save)
@@ -122,7 +184,7 @@ toolbar.pack(side = LEFT, fill = Y)
 
 
 #text space
-text = Text(root, width = w, height = h)
+text = Text(root, width = w, height = h, undo = True)
 text.pack()
 
 
