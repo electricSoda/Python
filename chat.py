@@ -17,6 +17,9 @@ class Server:
             for connection in self.connections:
                 connection.send(data)
             if not data:
+                print(str(a[0]) + ':' + str(a[1]), 'Disconnected')
+                self.connections.remove(c)
+                c.close()
                 break
 
     def run(self):
@@ -26,14 +29,29 @@ class Server:
             cThread.daemon = True
             cThread.start()
             connections.append(c)
-            print(self.connections)
+            print(str(a[0]) + ':' + str(a[1]), 'Connected')
 
 
 class Client:
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+    def sendMsg(self):
+        while True:
+            self.sock.send(bytes(input('Text: '), 'utf-8'))
+
+
     def __init__(self, address):
         self.sock.connect((address, 10000))
+
+        iThread = threading.Thread(target=self.sendMsg)
+        iThread.daemon = True
+        iThread.start()
+
+        while True:
+            data = self.sock.recv(1024)
+            if not data:
+                break
+            print(str(data, 'utf-8'))
 
 
 if (len(sys.argv) > 1):

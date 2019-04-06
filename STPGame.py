@@ -38,7 +38,7 @@ win = pygame.display.set_mode((display_w,display_h))
 
 pygame.display.set_caption("SimpleThirdPersonGame")
 
-os.chdir('C:\teleport\Code\Python\STPGame Files')
+os.chdir('C:\\teleport\\Code\\Python\\STPFiles')
 
 walkRight = [pygame.image.load('R1.png'), pygame.image.load('R2.png'), pygame.image.load('R3.png'), pygame.image.load('R4.png'), pygame.image.load('R5.png'), pygame.image.load('R6.png'), pygame.image.load('R7.png'), pygame.image.load('R8.png'), pygame.image.load('R9.png')]
 walkLeft = [pygame.image.load('L1.png'), pygame.image.load('L2.png'), pygame.image.load('L3.png'), pygame.image.load('L4.png'), pygame.image.load('L5.png'), pygame.image.load('L6.png'), pygame.image.load('L7.png'), pygame.image.load('L8.png'), pygame.image.load('L9.png')]
@@ -58,7 +58,7 @@ clock = pygame.time.Clock()
 def button(msg, x, y, w, h, ic, ac, action=None):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
-    
+
     #print(click)
     #print(mouse)
 
@@ -67,14 +67,14 @@ def button(msg, x, y, w, h, ic, ac, action=None):
         if click[0] == 1 and action != None:
             if action == 'play':
                 from sys import exit
-                
+
                 for event in pygame.event.get():
                     if event.type == QUIT:
                         pygame.quit()
                         quit()
-                        
-                
-                
+
+
+
                 score = 0
 
                 class player(object):
@@ -129,7 +129,7 @@ def button(msg, x, y, w, h, ic, ac, action=None):
                                 if event.type == pygame.QUIT:
                                     i = 201
                                     pygame.quit()
-                        
+
 
                 class projectile(object):
                     def __init__(self,x,y,radius,color,facing):
@@ -203,8 +203,15 @@ def button(msg, x, y, w, h, ic, ac, action=None):
                             text = font2.render('You Won', 1, (255,0,0))
                             win.blit(text, (250 - (text.get_width()/2),200))
                             pygame.display.update()
-                            i = 0
-                            
+                            i1 = 0
+                            while i1 < 200:
+                                pygame.time.delay(4)
+                                i1 += 1
+                                for event in pygame.event.get():
+                                    if event.type == pygame.QUIT:
+                                        i1 = 201
+                                        pygame.quit()
+
                         print('Hit')
 
                 def redrawGameWindow():
@@ -216,7 +223,7 @@ def button(msg, x, y, w, h, ic, ac, action=None):
                     goblin.draw(win)
                     for bullet in bullets:
                         bullet.draw(win)
-                    
+
                     pygame.display.update()
 
 
@@ -241,11 +248,11 @@ def button(msg, x, y, w, h, ic, ac, action=None):
                         shootLoop += 1
                     if shootLoop > 3:
                         shootLoop = 0
-                    
+
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
                             run = False
-                        
+
                     for bullet in bullets:
                         if bullet.y - bullet.radius < goblin.hitbox[1] + goblin.hitbox[3] and bullet.y + bullet.radius > goblin.hitbox[1]:
                             if bullet.x + bullet.radius > goblin.hitbox[0] and bullet.x - bullet.radius < goblin.hitbox[0] + goblin.hitbox[2]:
@@ -253,7 +260,7 @@ def button(msg, x, y, w, h, ic, ac, action=None):
                                 goblin.hit()
                                 score += 1
                                 bullets.pop(bullets.index(bullet))
-                                
+
                         if bullet.x < 500 and bullet.x > 0:
                             bullet.x += bullet.vel
                         else:
@@ -267,7 +274,7 @@ def button(msg, x, y, w, h, ic, ac, action=None):
                             facing = -1
                         else:
                             facing = 1
-                            
+
                         if len(bullets) < 5:
                             bullets.append(projectile(round(man.x + man.width //2), round(man.y + man.height//2), 6, (0,0,0), facing))
 
@@ -286,7 +293,7 @@ def button(msg, x, y, w, h, ic, ac, action=None):
                     else:
                         man.standing = True
                         man.walkCount = 0
-                        
+
                     if not(man.isJump):
                         if keys[pygame.K_UP]:
                             man.isJump = True
@@ -303,8 +310,8 @@ def button(msg, x, y, w, h, ic, ac, action=None):
                         else:
                             man.isJump = False
                             man.jumpCount = 10
-                        
-                            
+
+
                     redrawGameWindow()
 
             elif action == 'quit':
@@ -317,7 +324,7 @@ def button(msg, x, y, w, h, ic, ac, action=None):
     text = font3.render('Play', 144, (0,0,0))
     win.blit(text, (120,205))
     text = font3.render('Quit', 144, (255,255,255))
-    win.blit(text, (320,205))          
+    win.blit(text, (320,205))
 
 
 def game_intro():
@@ -338,11 +345,11 @@ def game_intro():
 
         button("Play", 100, 200, 100, 50, green, bright_green,'play')
         button("Quit", 300, 200, 100, 50, black, grey,'quit')
-        
+
         mouse = pygame.mouse.get_pos()
 
-        #print(mouse)      
-       
+        #print(mouse)
+
         pygame.display.update()
         clock.tick(15)
 game_intro()
@@ -350,5 +357,3 @@ game_intro()
 
 
 pygame.quit()
-
-
